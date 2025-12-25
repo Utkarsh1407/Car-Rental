@@ -9,7 +9,7 @@ const Navbar = () => {
     return <>
         <div className="fixed top-0 left-0 z-50 w-full flex justify-between items-center px-6 md:px-16 lg:px-36 py-5 md:border md:border-gray-400 ">
             <Link to='/' className='max-md:flex-1'>
-                <img src={car1} alt="" className='w-36 h-auto'/>
+                <img src={car1} alt="" className='w-20 h-auto'/>
             </Link> 
             <div className={`max-md:absolute max-md:top-0 max-md:left-0 max-md:font-medium max-md:text-lg z-50 
                 flex flex-col md:flex-row items-center max-md:justify-center gap-8 md:px-8 py-3 max-md:h-screen 

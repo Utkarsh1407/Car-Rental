@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {Search} from "lucide-react"
+import car1 from "../assets/car1.jpeg"
 const Hero = () => {
   return (
     <>
@@ -44,8 +45,11 @@ const Hero = () => {
             Search
           </button>
         </form>
-
+        <div className="mt-16">
+          <img src={car1} alt="car" className="max-md:w-full max-h-74 h-auto"/>
+        </div>
       </div>
+      
     </>
   );
 };
