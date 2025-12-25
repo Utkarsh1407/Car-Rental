@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import car1 from "../assets/car1.jpeg"
-import { MenuIcon, SearchIcon, XIcon } from 'lucide-react'
+import { MenuIcon, XIcon } from 'lucide-react'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
