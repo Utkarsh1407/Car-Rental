@@ -12,7 +12,7 @@ import car1 from "../assets/car1.jpeg"
 const Hero = () => {
   return (
     <>
-      <div className="h-screen flex items-center justify-center text-center flex-col ">
+      <div className="h-screen flex items-center justify-center text-center flex-col px-4">
         <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
         <form
           action=""
