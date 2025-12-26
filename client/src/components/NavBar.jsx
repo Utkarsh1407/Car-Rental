@@ -7,7 +7,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return <>
-        <div className="relative top-0 left-0 z-50 w-full flex justify-between items-center px-6 md:px-16 lg:px-36 py-3 md:border md:border-gray-400 ">
+        <div className="relative top-0 left-0 z-50 w-full flex bg-light justify-between items-center px-6 md:px-16 lg:px-36 py-3 md:border md:border-gray-400 ">
             <Link to='/' className='max-md:flex-1'>
                 <img src={car1} alt="" className='w-20 h-auto'/>
             </Link> 

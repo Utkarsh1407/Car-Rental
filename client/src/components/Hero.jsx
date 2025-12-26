@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {Search} from "lucide-react"
-import heroCar from "../assets/heroCar.jpeg"
+import hero_car from "../assets/hero_car.png"
 const Hero = () => {
   return (
     <>
@@ -16,7 +16,7 @@ const Hero = () => {
         <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
         <form
           action=""
-          className="p-6 flex w-full md:max-w-220 items-center justify-center gap-8 shadow-lg bg-white rounded-full max-md:flex-col max-md:rounded-2xl"
+          className="p-4 flex w-full md:max-w-220 items-center justify-center gap-4 shadow-lg bg-white rounded-full max-md:flex-col max-md:rounded-2xl"
         >
           <div className="flex flex-col font-bold gap-3">
             <p>Select City</p>
@@ -40,13 +40,13 @@ const Hero = () => {
             <p>Return Date</p>
             <DatePicker></DatePicker>
           </div>
-          <button className="flex gap-2 items-center justify-center cursor-pointer border border-black rounded-2xl bg-blue-400 text-white px-2 py-2">
+          <button className="flex gap-2 items-center justify-center cursor-pointer border rounded-4xl bg-primary hover:bg-primary-dull cursor pointer text-white px-9 py-3">
             <Search className="h-6"/>
             Search
           </button>
         </form>
-        <div className="mt-16">
-          <img src={heroCar} alt="car" className="max-md:w-full max-h-74 h-auto"/>
+        <div className="rounded-3xl ">
+          <img src={hero_car} alt="car" className="w-2xl"/>
         </div>
       </div>
       

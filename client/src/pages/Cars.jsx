@@ -1,16 +1,21 @@
+import { dummycardata } from "@/assets/assets";
 import React from "react";
+import CarCard from "../components/CarCard";
 
 const Cars = () => {
   return (
     <>
       <div>
-        <div className="flex flex-col h-40 md:h-65 bg-light items-center justify-center gap-2 px-4">
-          <h1 className="text-4xl font-bold">Available Cars</h1>
-          <h2>
-            Browse our selection of premium vehicles available for your next
-            adventure
-          </h2>
-          <div className="flex z-50 items-center border pl-4 gap-2 border-gray-500/30 h-11 rounded-full overflow-hidden max-w-md w-full">
+        <div className="flex flex-col h-50 md:h-65 bg-light items-center justify-center gap-6 px-4">
+          <div className="gap-2 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold">Available Cars</h1>
+            <h2>
+              Browse our selection of premium vehicles available for your next
+              adventure
+            </h2>
+          </div>
+          
+          <div className="flex items-center shadow pl-4 gap-2 h-11 rounded-full overflow-hidden max-w-140 bg-white w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -23,10 +28,24 @@ const Cars = () => {
             <input
               type="text"
               placeholder="Search"
-              className="w-full h-full outline-none text-gray-500 bg-transparent placeholder-gray-500 text-sm"
+              className="w-full h-full outline-none text-gray-500 bg-transparent placeholder-gray-500 text-sm "
             />
           </div>
         </div>
+
+        <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10">
+          <p className="text-gray-500">Showing {dummycardata.length} Cars</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            {dummycardata.map((car,index) => (
+              <div key={index}>
+                <CarCard car={car}/>
+              </div>
+            ))}
+
+          </div>
+        </div>
+
       </div>
     </>
   );

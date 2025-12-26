@@ -86,3 +86,51 @@ export const dummycardata =
     "createdAt": "2025-04-20T18:47:02.300Z"
   }
 ]
+
+export const dummyuserdata = {
+    "_id" : "6856fe3467ed8a817d0ba6e5",
+    "name" : "DEMO USER",
+    "email" : "admin@gmail.com",
+    "role" : "owner",
+    "image" : "user_profile"
+}
+
+
+export const dummyDashboardData = {
+  totalCars: 18,
+  totalBooking: 142,
+  pendingBookings: 7,
+  completedBookings: 119,
+  monthlyRevenue: 28450,
+
+  recentBookings: [
+    {
+      id: 1,
+      carName: "BMW 3 Series",
+      bookingDate: "2025-04-01",
+      amount: 475,
+      status: "Confirmed",
+    },
+    {
+      id: 2,
+      carName: "Ford Explorer",
+      bookingDate: "2025-03-01",
+      amount: 425,
+      status: "Completed",
+    },
+    {
+      id: 3,
+      carName: "Toyota Corolla",
+      bookingDate: "2025-04-05",
+      amount: 225,
+      status: "Pending",
+    },
+    {
+      id: 4,
+      carName: "Tesla Model 3",
+      bookingDate: "2025-04-06",
+      amount: 360,
+      status: "Confirmed",
+    },
+  ],
+};

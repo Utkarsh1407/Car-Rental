@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { User, Fuel, CarFront, MapPin } from "lucide-react";
 
 const CarCard = ({car}) => {
     const navigate = useNavigate();
@@ -17,21 +18,21 @@ const CarCard = ({car}) => {
                 <h3 className="text-sm"> {car.category} {car.year}</h3>
             </div>
 
-            <div className="grid grid-cols-2 gap-y-2 px-4 pb-2">
-                <div>
-                    <img src="" alt="" />
+            <div className="grid grid-cols-2 gap-y-2 px-4 pb-2 text-gray-500 text-sm">
+                <div className="flex gap-2 text-muted-foreground items-center">
+                    <User className="h-4"></User>
                     <span>{car.seating_capacity}</span>
                 </div>
-                <div>
-                    <img src="" alt="" />
+                <div className="flex gap-2 text-muted-foreground items-center">
+                    <Fuel className="h-4"></Fuel>
                     <span>{car.fuel_type}</span>
                 </div>
-                <div>
-                    <img src="" alt="" />
+                <div className="flex gap-2 text-muted-foreground items-center">
+                    <CarFront className="h-4"></CarFront>
                     <span>{car.transmission}</span>
                 </div>
-                <div>
-                    <img src="" alt="" />
+                <div className="flex gap-2 text-muted-foreground items-center">
+                    <MapPin className="h-4"></MapPin>
                     <span>{car.location}</span>
                 </div>
             </div>
