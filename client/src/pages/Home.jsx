@@ -3,7 +3,6 @@ import Hero from "../components/Hero"
 import FeaturedSection from "@/components/FeaturedSection"
 const Home = () =>{
     return <>
-        <Navbar />
         <Hero />
         <FeaturedSection />
     </>

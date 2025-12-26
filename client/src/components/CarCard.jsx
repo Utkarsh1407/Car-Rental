@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const CarCard = ({car}) => {
+    const navigate = useNavigate();
     return <>
-        <div className="flex flex-col gap-2 rounded-xl shadow-lg">
+        <div className="flex flex-col gap-2 rounded-xl shadow-lg cursor-pointer transition-all duration-500 hover:-translate-y-1" onClick={() => {
+            navigate(`/car-details/${car._id}`) ; 
+            scrollTo(0,0) 
+        }}>
             <div className="relative h-48">
                 <img src={car.image} alt="" className="w-full h-full object-cover"/>
             </div>
