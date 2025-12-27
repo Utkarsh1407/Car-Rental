@@ -134,3 +134,41 @@ export const dummyDashboardData = {
     },
   ],
 };
+
+export const dummyBookingData = [
+  {
+    _id: "68482bb598eb9722b7751f60",
+    car: dummycardata[1],
+    user: "6847f7cab3d8daecdb517095",
+    owner: "67fe3467ed8a8fe17d0ba6e2",
+    pickupDate: "2025-06-12T00:00:00.000Z",
+    returnDate: "2025-06-14T00:00:00.000Z",
+    status: "pending",
+    price: 130,
+    createdAt: "2025-06-10T12:57:25.613Z"
+  },
+  {
+    _id: "68482bb598eb9722b7751f61",
+    car: dummycardata[3],
+    user: "6847f7cab3d8daecdb517096",
+    owner: "67fe3467ed8a8fe17d0ba6e2",
+    pickupDate: "2025-07-01T00:00:00.000Z",
+    returnDate: "2025-07-05T00:00:00.000Z",
+    status: "approved",
+    price: 480,
+    createdAt: "2025-06-15T09:30:10.221Z"
+  },
+  {
+    _id: "68482bb598eb9722b7751f62",
+    car: dummycardata[0],
+    user: "6847f7cab3d8daecdb517097",
+    owner: "67fe3467ed8a8fe17d0ba6e2",
+    pickupDate: "2025-08-10T00:00:00.000Z",
+    returnDate: "2025-08-12T00:00:00.000Z",
+    status: "cancelled",
+    price: 90,
+    createdAt: "2025-06-20T18:45:00.000Z"
+  }
+];
+
+ 

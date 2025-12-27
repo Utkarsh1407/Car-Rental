@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import car1 from "../assets/car1.jpeg"
 import { MenuIcon, XIcon } from 'lucide-react'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
-
+    const navigate= useNavigate()
     return <>
         <div className="relative top-0 left-0 z-50 w-full flex bg-light justify-between items-center px-6 md:px-16 lg:px-36 py-3 md:border md:border-gray-400 ">
             <Link to='/' className='max-md:flex-1'>
@@ -20,7 +20,8 @@ const Navbar = () => {
                 <Link to="/"> Home </Link>
                 <Link to="/my-bookings"> My Bookings </Link>
                 <Link to="/cars"> Cars </Link>
-
+                <button className='bg-primary rounded-lg px-8 py-2 text-white cursor-pointer' onClick= {() => navigate('/login')}> Login </button>
+                <button className="cursor-pointer" onClick={() => navigate('/owner')}>DashBoard</button>
             </div>
 
             <MenuIcon className={`max-md:mr-2 md:hidden cursor-pointer ${isOpen ? 'max-md:hidden' : 'max-md:w-8'}`} onClick={()=> setIsOpen(!isOpen)}></MenuIcon>

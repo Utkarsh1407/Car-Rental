@@ -10,17 +10,21 @@ import AddCar from "./pages/owner/AddCar"
 import ManageBookings from "./pages/owner/ManageBookings"
 import ManageCars from "./pages/owner/ManageCars"
 import Dashboard from "./pages/owner/Dashboard"
+import Login from "./components/Login"
+import { useState } from "react"
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith('/owner')
+  const [showLogin,setShowLogin] = useState(false)
   return(
     <>
-      {!isOwnerPath && <Navbar/>}
+      {!isOwnerPath && <Navbar />}
       <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/car-details/:id" element={<CarDetails/>}/>
           <Route path="/cars" element={<Cars/>}/>
           <Route path="/my-bookings" element={<MyBookings/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="/owner" element={<Layout />}>
               <Route index element = {< Dashboard/>}/>
               <Route path = "/owner/add-car" element={<AddCar/>}/>
