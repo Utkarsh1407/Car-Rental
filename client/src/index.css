@@ -129,4 +129,8 @@
   --color-borderColour:#C4C7D2;
 }
 
-
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}

@@ -24,7 +24,7 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='mt-10 px-8'>
+    <div className='mt-10 px-8 lg:mr-20 xl:mr-32'>
       <div className='flex flex-col items-start'>
         <h1 className='text-3xl font-medium'>Admin Dashboard</h1>
         <p className='text-sm text-gray-500 mt-2'>Monitor overall performance</p>
