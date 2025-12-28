@@ -56,3 +56,12 @@ export const loginUser= async (req,res) => {
     }
 }
 
+export const getUserData= async (req,res) => {
+    try{
+        const {user} = req
+        res.json({success:true,user})
+    }catch(error){
+        res.json({success:false,message:error.message})
+    }
+}
+
