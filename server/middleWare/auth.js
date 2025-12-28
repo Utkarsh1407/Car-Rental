@@ -11,7 +11,7 @@ export const protect = async(req,res,next) => {
         if(!userId){
             return res.json({success:false,message:"Not Authorized"})
         }
-        req.user = await User.findById(userId).select(["-password","-role"])
+        req.user = await User.findById(userId).select(["-password"])
         next()
     }catch(error){
         return res.json({success:false,message:error.message})

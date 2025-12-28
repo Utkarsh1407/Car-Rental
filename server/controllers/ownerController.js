@@ -39,11 +39,56 @@ export const addCar = async(req,res) => {
         })
         
         const image = optimizedimageUrl;
-        await Car.create({...car, owner:_id, image})
+        await Car.create({...car, owner:_id, image:image})
 
         res.json({success:true, message:"Car is added"})
 
     }catch(error){
         res.json({success:false,message:error.message})
     }
+}  
+
+
+export const getOwnerCars= async(req,res) => {
+    try{
+        const id = req.user._id
+        const cars = await Car.find({owner:id})
+        res.json({success:true,cars})
+    }catch(error){
+        res.json({success:false,message:error.message})
+    }
+} 
+
+export const toggleAvailability = async(req,res) => {
+    try{
+        const {_id} = req.user
+        const {carId} = req.body 
+        const car = await Car.findById(carId)
+        if(car.owner.toString() !== _id.toString()){
+            return res.json({success:false,message:"Unauthorized Activity"})
+        }
+        car.isAvailable = ! car.isAvailable
+        await car.save()
+        res.json({success:true,message:"Availability Toggled"})
+    }catch(error){
+        res.json({success:false,message:error.message})
+    }
 }
+
+export const dltCar = async (req,res) => {
+    try{
+        const {_id} = req.user
+        const {carId} = req.body
+        const car = await Car.findById(carId)
+        if(car.owner.toString() !== _id.toString()){
+            return res.json({success:false,message:"Unauthorized Activity"})
+        }
+        car.owner= null
+        car.isAvailable= false
+        await car.save()
+        res.json({success:true,message:"Car Deleted"})
+    }catch(error){
+        res.json({success:false,message:error.message})
+    }
+}
+
