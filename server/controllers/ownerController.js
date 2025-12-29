@@ -2,6 +2,7 @@ import imagekit from "../configs/imagekit.js"
 import User from "../models/user.js"
 import fs from "fs"
 import Car from "../models/car.js"
+import Booking from "../models/booking.js"
 
 
 export const changeRoleToOwner = async(req,res) => {
@@ -92,3 +93,34 @@ export const dltCar = async (req,res) => {
     }
 }
 
+export const getDashboardData = async(req,res) => {
+    try{
+        const {_id, role} = req.user
+
+        if(role!= owner){
+            return res.json({success:false, message:"Unauthorized"})
+        }
+
+        const cars = Car.find({owner: _id})
+        const bookings = Booking.find({owner: _id}).populate("car").sort({createdAt: -1})
+        
+        const completedBookings = await Booking.find({owner: _id, status: "completed"})
+        const pendingBookings = await Booking.find({owner: _id, status: "pending"})
+
+        const monthlyRevenue = bookings.slice().filter(booking => booking.status === "confirmed")
+        .reduce((acc,booking)=> acc+booking.price, 0)
+
+        const dashboardData = {
+            totalCars : cars.length,
+            totalBookings : bookings.length,
+            pendingBookings: pendingBookings.length,
+            completedBookings : completedBookings.length,
+            monthlyRevenue : monthlyRevenue,
+            recentBookings: bookings.slice(0,3)
+        }
+
+        res.json({success:true, dashboardData})
+    }catch(error){
+        res.json({success:false,message:error.message})
+    }
+}
