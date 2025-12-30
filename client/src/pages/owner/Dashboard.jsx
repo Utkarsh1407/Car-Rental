@@ -1,8 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { dummyDashboardData } from '@/assets/assets'
+import { useAppContext } from '../../../context/AppContext'
+import toast from "react-hot-toast"
 
 const Dashboard = () => {
+  const {isOwner, axios} = useAppContext()
+
   const [data,setData] = useState({
     totalCars:0,
     totalBooking:0,
@@ -18,10 +22,25 @@ const Dashboard = () => {
     {title : "Pending Bookings", value : data.pendingBookings},
     {title : "Completed Bookings", value : data.completedBookings}
   ]
-  
+  const fetchDashboardData = async() => {
+    try{
+      const {data} = await axios.get('/api/owner/dashboard-data')
+      if(data.success){
+        setData(data.dashboardData)
+
+      }else{
+        toast.error(data.message)
+      }
+    }catch(error){
+      toast.error(error.message)
+    }
+  }
+
   useEffect(() => {
-    setData(dummyDashboardData)
-  }, [])
+    if(isOwner){
+      fetchDashboardData()
+    } 
+  }, [isOwner])
 
   return (
     <div className='mt-10 px-8 lg:mr-20 xl:mr-32'>

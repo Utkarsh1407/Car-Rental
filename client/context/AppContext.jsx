@@ -25,7 +25,7 @@ export const AppProvider= ({children}) => {
             const {data} = await axios.get('/api/user/data')
             if (data.success){
                 setUser(data.user)
-                setIsOwner(data.owner.role==="owner")
+                setIsOwner(data.user.role==="owner")
             }else{
                 navigate('/')
             }
@@ -43,6 +43,7 @@ export const AppProvider= ({children}) => {
                 toast.error(data.message)
             }
         }catch(error){
+            console.log("2")
             toast.error(error.message)
         }
     }
@@ -60,6 +61,7 @@ export const AppProvider= ({children}) => {
     useEffect(() => {
         const token = localStorage.getItem("token")
         setToken(token)
+        console.log("3")
     },[])
 
     // UseEffect to fetch user data when token is available 
@@ -67,6 +69,7 @@ export const AppProvider= ({children}) => {
         if (token){
             axios.defaults.headers.common["Authorization"] = `${token}`
             fetchUser()
+            console.log("4")
         }
     },[token])
 

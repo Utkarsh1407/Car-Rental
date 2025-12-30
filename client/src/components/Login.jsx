@@ -12,7 +12,6 @@ const Login = () => {
 
     const onSubHandler = async (event) => {
         event.preventDefault();
-        
         try{
             const {data} = await axios.post(`/api/user/${state}`,{name,email,password})
             if(data.success){
