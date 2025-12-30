@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import car1 from "../assets/car1.jpeg"
 import { MenuIcon, XIcon } from 'lucide-react'
-import { useAppContext } from 'context/AppContext'
+import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
 
 const Navbar = () => {
