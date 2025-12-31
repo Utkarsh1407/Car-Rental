@@ -31,13 +31,13 @@ const Navbar = () => {
             </Link> 
             <div className={`max-md:absolute max-md:top-0 max-md:left-0 max-md:font-medium max-md:text-lg z-50 
                 flex flex-col md:flex-row items-center max-md:justify-center gap-8 md:px-8 py-3 max-md:h-screen 
-                md:rounded-full backdrop-blur bg-black/70 md:bg-white/10 md:border border-gray-300/20 
+                md:rounded-full backdrop-blur bg-black/70 max-md:text-white md:bg-white/10 md:border border-gray-300/20 
                 overflow-hidden transition-[width] duration-300 ${isOpen ? 'max-md:w-full' : 'max-md:w-0'}`}>
 
                 <XIcon className='md:hidden absolute top-6 right-6 w-6 h-6 cursor-pointer' onClick={()=> setIsOpen(!isOpen)}/>
-                <Link to="/"> Home </Link>
-                <Link to="/my-bookings"> My Bookings </Link>
-                <Link to="/cars"> Cars </Link>
+                <Link onClick={()=> setIsOpen(!isOpen)} to="/"> Home </Link>
+                <Link onClick={()=> setIsOpen(!isOpen)} to="/my-bookings"> My Bookings </Link>
+                <Link onClick={()=> setIsOpen(!isOpen)} to="/cars"> Cars </Link>
                 <button className='bg-primary rounded-lg px-8 py-2 text-white cursor-pointer' onClick= {() => {user ? logout() : setShowLogin(true)} } > {user ? "Logout" : "Login"} </button>
                 <button className="cursor-pointer" onClick={() => {isOwner ? navigate('/owner'): changeRole() }}>{isOwner ? "DashBoard" : "List Cars"}</button>
             </div>

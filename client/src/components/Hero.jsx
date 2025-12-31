@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DatePicker } from "./ui/DatePicker";
 import {
   Select,
@@ -10,21 +10,26 @@ import {
 import {Search} from "lucide-react"
 import hero_car from "../assets/hero_car.png"
 import { useAppContext } from "../../context/AppContext";
-const {axios} = useAppContext()
-
-
 
 const Hero = () => {
-  const HandleSub = async(e) => {
-    e.preventDefault()
-    
+  const {axios} = useAppContext()
+
+  const [pickupLocation, setPickupLocation] = useState("")
+
+  const {pickupDate, setPickupDate, returnDate, setReturnDate, navigate} = useAppContext()
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("call hua")
+    navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate=' + pickupDate + '&returnDate=' + returnDate)
   }
+
   return (
     <>
       <div className="h-screen flex items-center justify-center text-center flex-col px-4 bg-light">
         <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
         <form
-          onSubmit={()=> {HandleSub}}
+          onSubmit={handleSearch}
           className="p-4 flex w-full md:max-w-220 items-center justify-center gap-4 shadow-lg bg-white rounded-full max-md:flex-col max-md:rounded-2xl"
         >
           <div className="flex flex-col font-bold gap-3">
@@ -43,7 +48,7 @@ const Hero = () => {
 
           <div className="flex flex-col font-bold ">
             <p>Pick-Up Date</p>
-            <DatePicker></DatePicker>
+            <DatePicker ></DatePicker>
           </div>
           <div className="flex flex-col font-bold ">
             <p>Return Date</p>

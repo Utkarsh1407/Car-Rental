@@ -1,7 +1,5 @@
-import { dummycardata } from "@/assets/assets";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import car1 from "../assets/car1.jpeg";
 import { User, Fuel, CarFront, MapPin } from "lucide-react";
 import Loader from "../components/Loader"
 import { useAppContext } from "../../context/AppContext";
@@ -10,11 +8,8 @@ import toast from "react-hot-toast";
 const CarDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const {axios, cars, setCars} = useAppContext()
+  const {axios, cars, setCars, pickupDate, setPickupDate, returnDate, setReturnDate} = useAppContext()
   const [car,setCar] = useState(null)
-
-  const [pickupDate, setPickupDate] = useState("")
-  const [returnDate, setReturnDate] = useState("")
 
   useEffect(() => {
     setCar(cars.find((car) => car._id === id));
@@ -93,11 +88,11 @@ const CarDetails = () => {
           <hr className="border border-gray-400 "/>
           <div className="w-full">
             <label htmlFor="pickupDate" className="block mb-2 font-medium">Pickup Date</label>
-            <input required id="pickupDate" type="date" className="border rounded px-3 py-2 w-full " onChange={(e) => setPickupDate(e.target.value)}/>
+            <input required id="pickup-date" type="date" className="border rounded px-3 py-2 w-full " onChange={(e) => setPickupDate(e.target.value)}/>
           </div>
           <div className="w-full">
             <label htmlFor="returnDate" className="block mb-2 font-medium">Return Date</label>
-            <input required id="returnDate" type="date" className="border rounded px-3 py-2 w-full" onChange={(e) => setReturnDate(e.target.value)}/>
+            <input required id="return-date" type="date" className="border rounded px-3 py-2 w-full" onChange={(e) => setReturnDate(e.target.value)}/>
           </div>
           <button className="w-full bg-blue-500 text-white p-2 rounded-2xl cursor-pointer">Book Now</button>
         </form>

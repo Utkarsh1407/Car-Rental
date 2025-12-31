@@ -36,7 +36,7 @@ export const addBooking = async(req,res) => {
         const {_id} = req.user;
         const {car, pickupDate, returnDate} = req.body;
 
-        const isAvailable = checkAvailability(car, pickupDate, returnDate)
+        const isAvailable = await checkAvailability(car, pickupDate, returnDate)
         if(!isAvailable){
             return res.json({success:false, message:"Car not available"})
         }
@@ -59,7 +59,7 @@ export const addBooking = async(req,res) => {
     }catch(error){
         res.json({success:false, message:error.message})
     }
-    
+
 }
 
 export const getUserBookings = async(req,res) => {
