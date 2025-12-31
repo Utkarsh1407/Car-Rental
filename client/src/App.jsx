@@ -35,7 +35,7 @@ const App = () => {
               <Route path = "manage-cars" element={<ManageCars/>}/>
           </Route>
       </Routes>
-      <Footer/>
+      {!isOwnerPath && <Footer/>}
     </>
   )
 }

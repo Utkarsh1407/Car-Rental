@@ -28,11 +28,18 @@ const MyBookings = () => {
   }, [isOwner])
 
   return (
-    <div className="mx-6 md:mx-12 pt-6">
-      <h1 className="text-4xl pb-2">My Bookings</h1>
-      <p>View and manage your all car bookings</p>
-
-      <div className="mt-6 border border-borderColour">
+    <div>
+      <div className="flex flex-col h-20 md:h-40 bg-light items-center justify-center gap-6 px-4">
+        <div className="gap-2 flex flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold">My Bookings</h1>
+          <h2>
+            View and manage your all car bookings
+          </h2>
+        </div>
+      </div>
+      
+      <div className="mt-8 px-4">
+        <div className="mx-auto max-w-5xl border border-borderColour">
         <table className="w-full shadow-lg border-collapse text-left text-sm">
           <thead>
             <tr>
@@ -91,6 +98,9 @@ const MyBookings = () => {
           </tbody>
         </table>
       </div>
+      </div>
+
+      
     </div>
   )
 }

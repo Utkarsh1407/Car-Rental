@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { dummyDashboardData } from '@/assets/assets'
 import { useAppContext } from '../../../context/AppContext'
 import toast from "react-hot-toast"
 
@@ -52,7 +51,7 @@ const Dashboard = () => {
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8'>
       {
         dashboardCards.map(({title,value}) => (
-          <div className='flex flex-col items-start justify-center border shadow px-4 py-3'>
+          <div key={title} className='flex flex-col items-start justify-center border shadow px-4 py-3'>
             <h3 className='text-gray-500 text-sm'>{title}</h3>
             <h2 className='text-lg font-bold pt-2'>{value}</h2>
           </div>
@@ -69,9 +68,9 @@ const Dashboard = () => {
   
             <div className="mt-4 flex flex-col gap-4">
             {data.recentBookings.map(
-              ({ id, carName, bookingDate, amount, status }) => (
+              ({_id, car, createdAt, price, status }) => (
                 <div
-                  key={id}
+                  key={_id}
                   className="flex items-center justify-between border-b pb-3"
                 >
                   {/* Left: Car + Date */}
@@ -81,14 +80,14 @@ const Dashboard = () => {
                     </div>
 
                     <div>
-                      <p className="font-medium">{carName}</p>
-                      <p className="text-sm text-gray-500">{bookingDate}</p>
+                      <p className="font-medium">{car?.brand} {car?.model}</p>
+                      <p className="text-sm text-gray-500">{new Date(createdAt).toLocaleDateString()}</p>
                     </div>
                   </div>
 
                   {/* Middle: Amount */}
                   <div className='flex gap-2'>
-                    <p className="font-medium">${amount}</p>
+                    <p className="font-medium">{price}</p>
 
                   {/* Right: Status */}
                   <span className="px-3 py-1 text-sm rounded-full border">

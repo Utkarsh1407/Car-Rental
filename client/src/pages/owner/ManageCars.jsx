@@ -56,12 +56,13 @@ const ManageCars = () => {
     <div className='mx-6 md:mx-12 pt-6'>
         <h1 className='text-4xl pb-2'>Manage Cars</h1>
         <p>View all listed cars,update their details or remove them.</p>
-        <div className='mt-6 border border-borderColour'>
-          <table className='w-full shadow-lg border-collapse text-left text-sm'>
-            <thead>
+        <div className='mt-6 border border-borderColour overflow-x-auto'>
+          <div className='max-h-[60vh] overflow-y-auto'>
+            <table className='min-w-175 w-full border-collapse text-left text-sm'>
+            <thead className='sticky top-0 bg-white z-10'>
               <tr>
                 <th className='p-3 font-medium'>Car</th>
-                <th className='p-3 font-medium max-md:hidden'>Category</th>
+                <th className='p-3 font-medium'>Category</th>
                 <th className='p-3 font-medium'>Price</th>
                 <th className='p-3 font-medium'>Status</th>
                 <th className='p-3 font-medium'>Action</th>
@@ -82,7 +83,7 @@ const ManageCars = () => {
 
                       </div>
                     </td>
-                    <td className='p-3 max-md:hidden'>{car.category}</td>
+                    <td className='p-3'>{car.category}</td>
                     <td className='p-3'>{car.pricePerDay}</td>
                     <td className='p-3'>
                       <span> {car.isAvailable ? "Available" : "Not Available" } </span>
@@ -97,6 +98,8 @@ const ManageCars = () => {
               ))}
             </tbody>
           </table>
+          </div>
+          
         </div>
     </div>
   )

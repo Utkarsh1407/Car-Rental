@@ -9,8 +9,8 @@ const Cars = () => {
   const {cars, axios} = useAppContext()
   const [searchParams] = useSearchParams()
   const pickupLocation = searchParams.get('pickupLocation')
-  const pickupDate = searchParams.get('pickupdate')
-  const returnDate = searchParams.get('returndate')
+  const pickupDate = searchParams.get('pickupDate')
+  const returnDate = searchParams.get('returnDate')
   const [input,setInput] = useState('')
   const isSearchData = pickupLocation && pickupDate && returnDate
   const [filteredCars,setFilteredCars] = useState([])
@@ -28,7 +28,7 @@ const Cars = () => {
   }
 
   const searchCarAvailability = async() => {
-    const {data} = await axios.post('/api/bookings/check-availability',{location:pickupLocation,pickupDate,returnDate})
+    const {data} = await axios.post('/api/booking/available-cars',{location:pickupLocation,pickupDate,returnDate})
     if(data.success){
       setFilteredCars(data.availableCars)
       if(data.availableCars.length === 0){
@@ -40,7 +40,7 @@ const Cars = () => {
 
   useEffect(() => {
     isSearchData && searchCarAvailability()
-  },[])
+  },[pickupLocation, pickupDate, returnDate])
 
   useEffect( () => {
     cars.length>0 && !isSearchData && applyFilter()
@@ -72,7 +72,7 @@ const Cars = () => {
               type="text"
               placeholder="Search"
               className="w-full h-full outline-none text-gray-500 bg-transparent placeholder-gray-500 text-sm "
-              onClick={(e) => setInput(e.target.value)}
+              onChange={(e) => setInput(e.target.value)}
               value={input}
             />
           </div>

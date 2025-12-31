@@ -47,8 +47,8 @@ const ManageBookings = () => {
       <h1 className="text-4xl pb-2">Manage Bookings</h1>
       <p>View all bookings, update their status or remove them.</p>
 
-      <div className="mt-6 border border-borderColour">
-        <table className="w-full shadow-lg border-collapse text-left text-sm">
+      <div className="mt-6 border border-borderColour overflow-x-auto">
+        <table className="min-w-175 shadow-lg border-collapse text-left text-sm">
           <thead>
             <tr>
               <th className="p-3 font-medium">Car</th>
