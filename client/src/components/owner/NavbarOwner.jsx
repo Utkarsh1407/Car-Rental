@@ -1,5 +1,5 @@
 import React from 'react'
-import car1 from "../../assets/car1.jpeg"
+import logo2 from "../../assets/logo2.png"
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../../context/AppContext'
 
@@ -8,7 +8,7 @@ const NavbarOwner = () => {
   return (
     <div className='flex justify-between px-6 md:px-10 py-4 border border-borderColour'>
         <Link to='/'>
-            <img src={car1} alt="" className='h-7'/>
+            <img src={logo2} alt="" className='h-7'/>
         </Link>
       
       <p className='text-gray-500'>Welcome, {user ? user.name : "Owner"} </p>
