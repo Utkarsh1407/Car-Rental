@@ -1,6 +1,10 @@
+import { useAppContext } from "../../../context/AppContext";
 import { useState } from "react";
 
+
 const AddCar = () => {
+
+  const {axios} = useAppContext()
   const [formData, setFormData] = useState({
     brand: "",
     model: "",
@@ -15,10 +19,15 @@ const AddCar = () => {
     description: "",
   });
 
+
   const [featureInput, setFeatureInput] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleImage = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
   };
 
   const addFeature = () => {
@@ -40,6 +49,10 @@ const AddCar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    // try{
+    //   const {data} = axios.post('/api/owner/add-car',{formData})
+
+    // }
   };
 
   return (
@@ -49,8 +62,8 @@ const AddCar = () => {
         Fill in details to list a new car for booking, including pricing,
         availability, and car specifications.
       </p>
-
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+
         {/* Brand & Model */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Input label="Brand" name="brand" placeholder="e.g. BMW, Mercedes, Audi" onChange={handleChange} />
@@ -130,10 +143,16 @@ const AddCar = () => {
           />
         </div>
 
+        <div>
+          <label className="block text-sm font-medium mb-2">Description</label>
+          <input type="file" accept="image/*" onChange={handleImage} className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
         {/* Submit */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700"
+          onSubmit={handleSubmit}
         >
           Add Car
         </button>
