@@ -1,8 +1,13 @@
 import { dummycardata } from "@/assets/assets";
 import React from "react";
 import CarCard from "../components/CarCard";
+import { useAppContext } from "../../context/AppContext";
 
 const Cars = () => {
+
+  const {cars, axios} = useAppContext()
+
+
   return (
     <>
       <div>
@@ -34,10 +39,10 @@ const Cars = () => {
         </div>
 
         <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10">
-          <p className="text-gray-500">Showing {dummycardata.length} Cars</p>
+          <p className="text-gray-500">Showing {cars.length} Cars</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            {dummycardata.map((car,index) => (
+            {cars.map((car,index) => (
               <div key={index}>
                 <CarCard car={car}/>
               </div>

@@ -9,25 +9,34 @@ import {
 } from "@/components/ui/select";
 import {Search} from "lucide-react"
 import hero_car from "../assets/hero_car.png"
+import { useAppContext } from "../../context/AppContext";
+const {axios} = useAppContext()
+
+
+
 const Hero = () => {
+  const HandleSub = async(e) => {
+    e.preventDefault()
+    
+  }
   return (
     <>
       <div className="h-screen flex items-center justify-center text-center flex-col px-4 bg-light">
         <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
         <form
-          action=""
+          onSubmit={()=> {HandleSub}}
           className="p-4 flex w-full md:max-w-220 items-center justify-center gap-4 shadow-lg bg-white rounded-full max-md:flex-col max-md:rounded-2xl"
         >
           <div className="flex flex-col font-bold gap-3">
             <p>Select City</p>
             <Select>
               <SelectTrigger className="w-45">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="London" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="San Francisco">San Francisco</SelectItem>
+                <SelectItem value="Miami">Miami</SelectItem>
+                <SelectItem value="Florida">Florida</SelectItem>
               </SelectContent>
             </Select>
           </div>

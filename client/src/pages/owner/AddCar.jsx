@@ -22,7 +22,6 @@ const AddCar = () => {
 
   const [image,setImage] = useState(null)
 
-
   const [featureInput, setFeatureInput] = useState("");
 
   const handleChange = (e) => {
@@ -93,28 +92,29 @@ const AddCar = () => {
 
         {/* Brand & Model */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Input label="Brand" name="brand" placeholder="e.g. BMW, Mercedes, Audi" onChange={handleChange} />
-          <Input label="Model" name="model" placeholder="e.g. X5, E-Class, M4" onChange={handleChange} />
+          <Input label="Brand" name="brand" value={car.brand} placeholder="e.g. BMW, Mercedes, Audi" onChange={handleChange} />
+          <Input label="Model" name="model" value={car.model} placeholder="e.g. X5, E-Class, M4" onChange={handleChange} />
         </div>
 
         {/* Year, Price, Category */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Input type="number" label="Year" name="year" placeholder="2025" onChange={handleChange} />
-          <Input type="number" label="Daily Price ($)" name="pricePerDay" placeholder="100" onChange={handleChange} />
-          <Input label="Category" name="category" placeholder="Sedan" onChange={handleChange} />
+          <Input type="number" value={car.year} label="Year" name="year" placeholder="2025" onChange={handleChange} />
+          <Input type="number" label="Daily Price ($)" value={car.pricePerDay} name="pricePerDay" placeholder="100" onChange={handleChange} />
+          <Input label="Category" value={car.category} name="category" placeholder="Sedan" onChange={handleChange} />
         </div>
 
         {/* Transmission, Fuel, Seats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Input label="Transmission" name="transmission" placeholder="Automatic" onChange={handleChange} />
-          <Input label="Fuel Type" name="fuel_type" placeholder="Diesel" onChange={handleChange} />
-          <Input type="number" label="Seating Capacity" name="seating_capacity" placeholder="5" onChange={handleChange} />
+          <Input label="Transmission" name="transmission" value={car.transmission} placeholder="Automatic" onChange={handleChange} />
+          <Input label="Fuel Type" name="fuel_type" value={car.fuel_type} placeholder="Diesel" onChange={handleChange} />
+          <Input type="number" label="Seating Capacity" name="seating_capacity" value={car.seating_capacity} placeholder="5" onChange={handleChange} />
         </div>
 
         {/* Location */}
         <Input
           label="Location"
           name="location"
+          value={car.location}
           placeholder="e.g. San Francisco, CA"
           onChange={handleChange}
         />
@@ -164,6 +164,7 @@ const AddCar = () => {
           <textarea
             name="description"
             rows="4"
+            value = {car.description}
             placeholder="Describe your car, its condition, and any notable details..."
             onChange={handleChange}
             className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -172,7 +173,27 @@ const AddCar = () => {
 
         <div>
           <label className="block text-sm font-medium mb-2">Image</label>
-          <input type="file" name="image" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+
+          <label
+            htmlFor="image-upload"
+            className="flex items-center justify-between w-full border rounded-lg px-4 py-3 cursor-pointer bg-white hover:bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500"
+          >
+            <span className="text-gray-500">
+              {image ? image.name : "Choose an image"}
+            </span>
+
+            <span className="bg-blue-600 text-white px-4 py-1.5 rounded-md text-sm">
+              Browse
+            </span>
+          </label>
+
+          <input
+            id="image-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            className="hidden bg-light"
+          />
         </div>
 
         {/* Submit */}

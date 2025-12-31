@@ -7,11 +7,11 @@ import { useEffect } from "react"
 
 const Layout = () => {
   const {isOwner, navigate} = useAppContext();
-  useEffect(()=>{
-    if(!isOwner){
-      navigate('/')
-    }
-  }, [isOwner])
+  // useEffect(()=>{
+  //   if(!isOwner){
+  //     navigate('/')
+  //   }
+  // }, [isOwner])
 
   return (
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden">

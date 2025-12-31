@@ -97,22 +97,23 @@ export const getDashboardData = async(req,res) => {
     try{
         const {_id, role} = req.user
 
-        if(role!= owner){
+        if(role!= "owner"){
             return res.json({success:false, message:"Unauthorized"})
         }
 
-        const cars = Car.find({owner: _id})
-        const bookings = Booking.find({owner: _id}).populate("car").sort({createdAt: -1})
+        const cars = await Car.find({owner: _id})
+        const bookings = await Booking.find({owner: _id}).populate("car").sort({createdAt: -1})
         
         const completedBookings = await Booking.find({owner: _id, status: "completed"})
         const pendingBookings = await Booking.find({owner: _id, status: "pending"})
 
-        const monthlyRevenue = bookings.slice().filter(booking => booking.status === "confirmed")
-        .reduce((acc,booking)=> acc+booking.price, 0)
+        const monthlyRevenue = bookings
+      .filter(b => b.status === "confirmed")
+      .reduce((acc, b) => acc + b.price, 0)
 
         const dashboardData = {
             totalCars : cars.length,
-            totalBookings : bookings.length,
+            totalBooking : bookings.length,
             pendingBookings: pendingBookings.length,
             completedBookings : completedBookings.length,
             monthlyRevenue : monthlyRevenue,

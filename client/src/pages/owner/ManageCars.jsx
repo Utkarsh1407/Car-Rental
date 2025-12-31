@@ -35,6 +35,19 @@ const ManageCars = () => {
         }
   }
 
+  const dltcar = async(carId) => {
+    try{
+      const {data} = await axios.post('/api/owner/delete-car', {carId})
+      if(data.success){
+          fetchCars()
+      }else{
+        toast.error(data.message)
+      }
+    }catch(error){
+      toast.error(error.message)
+    }
+  }
+
   useEffect(() => {
     isOwner && fetchCars()
   },[isOwner]) 
@@ -77,7 +90,7 @@ const ManageCars = () => {
                     <td>
                       <div className='flex p-3 items-center gap-2'>
                         {car.isAvailable ? <EyeOff onClick={() => toggleAvailability(car._id)} className='h-4 cursor-pointer'/> : <Eye onClick={() => toggleAvailability(car._id)} className='h-4 cursor-pointer'/>}
-                        <Trash className='h-4 cursor-pointer'/>
+                        <Trash onClick={()=> {dltcar(car._id)}} className='h-4 cursor-pointer'/>
                       </div>
                     </td>
                   </tr>

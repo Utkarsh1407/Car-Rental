@@ -40,10 +40,10 @@ export const AppProvider= ({children}) => {
             if(data.success){
                 setCars(data.cars)
             }else{
+                console.log("yaha error h")
                 toast.error(data.message)
             }
         }catch(error){
-            console.log("2")
             toast.error(error.message)
         }
     }
@@ -61,7 +61,7 @@ export const AppProvider= ({children}) => {
     useEffect(() => {
         const token = localStorage.getItem("token")
         setToken(token)
-        console.log("3")
+        fetchCars()
     },[])
 
     // UseEffect to fetch user data when token is available 
@@ -69,7 +69,6 @@ export const AppProvider= ({children}) => {
         if (token){
             axios.defaults.headers.common["Authorization"] = `${token}`
             fetchUser()
-            console.log("4")
         }
     },[token])
 

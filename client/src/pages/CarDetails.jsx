@@ -4,18 +4,39 @@ import { useNavigate, useParams } from "react-router-dom";
 import car1 from "../assets/car1.jpeg";
 import { User, Fuel, CarFront, MapPin } from "lucide-react";
 import Loader from "../components/Loader"
+import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 const CarDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [car, setCar] = useState(null);
+  const {axios, cars, setCars} = useAppContext()
+  const [car,setCar] = useState(null)
+
+  const [pickupDate, setPickupDate] = useState("")
+  const [returnDate, setReturnDate] = useState("")
 
   useEffect(() => {
-    setCar(dummycardata.find((car) => car._id === id));
-  }, [id]);
+    setCar(cars.find((car) => car._id === id));
+  }, [cars, id]);
+
+  const getBooking = async() => {
+    try{
+      const {data} = await axios.post('/api/booking/add-booking', {car:car._id,pickupDate, returnDate})
+      if(data.success){
+          toast.success("Your booking is done")
+      }else{
+          toast.error(data.message)
+          console.log("yaha gadbad h")
+      }
+    }catch(error){
+      toast.error(error.message)
+    }
+  }
 
   const HandleSub = async(e) => {
-        e.preventDefault()
+      e.preventDefault()
+      getBooking()
   }
 
   return car ? (
@@ -24,7 +45,7 @@ const CarDetails = () => {
         {/* left div  */}
         <div className="lg:col-span-2 ">
           <img
-            src={car1}
+            src={car.image}
             alt=""
             className="w-full h-auto md:max-h-100 object-cover mb-6"
           />
@@ -66,17 +87,17 @@ const CarDetails = () => {
         {/* right div */}
         <form className="p-4 flex sticky flex-col gap-6 top-18 border rounded-2xl shadow-lg " onSubmit={HandleSub}>
           <div className="flex items-center justify-between"> 
-            <h1 className="font-bold">$130</h1>
+            <h1 className="font-bold">{car.pricePerDay}</h1>
             <h1 className="text-gray-600">per day</h1>
           </div>
           <hr className="border border-gray-400 "/>
           <div className="w-full">
-            <label htmlFor="pickup-date" className="block mb-2 font-medium">Pickup Date</label>
-            <input required id="pickup-date" type="date" className="border rounded px-3 py-2 w-full " />
+            <label htmlFor="pickupDate" className="block mb-2 font-medium">Pickup Date</label>
+            <input required id="pickupDate" type="date" className="border rounded px-3 py-2 w-full " onChange={(e) => setPickupDate(e.target.value)}/>
           </div>
           <div className="w-full">
-            <label htmlFor="return-date" className="block mb-2 font-medium">Return Date</label>
-            <input required id="return-date" type="date" className="border rounded px-3 py-2 w-full" />
+            <label htmlFor="returnDate" className="block mb-2 font-medium">Return Date</label>
+            <input required id="returnDate" type="date" className="border rounded px-3 py-2 w-full" onChange={(e) => setReturnDate(e.target.value)}/>
           </div>
           <button className="w-full bg-blue-500 text-white p-2 rounded-2xl cursor-pointer">Book Now</button>
         </form>
