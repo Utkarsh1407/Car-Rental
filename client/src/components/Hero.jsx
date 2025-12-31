@@ -1,70 +1,110 @@
 import React, { useState } from "react";
-import { DatePicker } from "./ui/DatePicker";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {Search} from "lucide-react"
-import hero_car from "../assets/hero_car.png"
+import { Search } from "lucide-react";
+import hero_car from "../assets/hero_car.png";
 import { useAppContext } from "../../context/AppContext";
 
 const Hero = () => {
-  const {axios} = useAppContext()
+  const { pickupDate, setPickupDate, returnDate, setReturnDate, navigate } =
+    useAppContext();
 
-  const [pickupLocation, setPickupLocation] = useState("")
-
-  const {pickupDate, setPickupDate, returnDate, setReturnDate, navigate} = useAppContext()
+  const [pickupLocation, setPickupLocation] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("call hua")
-    navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate=' + pickupDate + '&returnDate=' + returnDate)
-  }
+    navigate(
+      `/cars?pickupLocation=${pickupLocation}&pickupDate=${pickupDate}&returnDate=${returnDate}`
+    );
+  };
 
   return (
-    <>
-      <div className="h-screen flex items-center justify-center text-center flex-col px-4 bg-light">
-        <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
-        <form
-          onSubmit={handleSearch}
-          className="p-4 flex w-full md:max-w-220 items-center justify-center gap-4 shadow-lg bg-white rounded-full max-md:flex-col max-md:rounded-2xl"
-        >
-          <div className="flex flex-col font-bold gap-3">
-            <p>Select City</p>
-            <Select>
-              <SelectTrigger className="w-45">
-                <SelectValue placeholder="London" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="San Francisco">San Francisco</SelectItem>
-                <SelectItem value="Miami">Miami</SelectItem>
-                <SelectItem value="Florida">Florida</SelectItem>
-              </SelectContent>
-            </Select>
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-light">
+      <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
+
+      {/* FORM */}
+      <form
+        onSubmit={handleSearch}
+        className="
+          w-full max-w-220
+          bg-white shadow-lg
+          rounded-2xl md:rounded-full
+          px-4 py-4 md:px-10
+          flex flex-col md:flex-row
+          gap-4 md:gap-6
+          items-stretch md:items-end
+        "
+      >
+        {/* Inputs */}
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-1">
+          {/* City */}
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-semibold text-gray-700 mb-2">
+              Select City
+            </label>
+            <select
+              className="
+                h-11 px-4 rounded-md border border-gray-300
+                bg-white text-sm text-gray-800
+                focus:outline-none focus:ring-2 focus:ring-black
+              "
+              onChange={(e) => setPickupLocation(e.target.value)}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                London
+              </option>
+              <option value="San Francisco">San Francisco</option>
+              <option value="Miami">Miami</option>
+              <option value="Florida">Florida</option>
+            </select>
           </div>
 
-          <div className="flex flex-col font-bold ">
-            <p>Pick-Up Date</p>
-            <DatePicker ></DatePicker>
+          {/* Pickup Date */}
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium mb-2">Pickup Date</label>
+            <input
+              required
+              value={pickupDate}
+              type="date"
+              className="h-11 border rounded-md px-3"
+              onChange={(e) => setPickupDate(e.target.value)}
+            />
           </div>
-          <div className="flex flex-col font-bold ">
-            <p>Return Date</p>
-            <DatePicker></DatePicker>
+
+          {/* Return Date */}
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium mb-2">Return Date</label>
+            <input
+              required
+              value={returnDate}
+              type="date"
+              className="h-11 border rounded-md px-3"
+              onChange={(e) => setReturnDate(e.target.value)}
+            />
           </div>
-          <button className="flex gap-2 items-center justify-center cursor-pointer border rounded-4xl bg-primary hover:bg-primary-dull cursor pointer text-white px-9 py-3">
-            <Search className="h-6"/>
-            Search
-          </button>
-        </form>
-        <div className="rounded-3xl ">
-          <img src={hero_car} alt="car" className="w-2xl"/>
         </div>
+
+        {/* Button */}
+        <button
+          type="submit"
+          className="
+            flex items-center justify-center gap-2
+            bg-primary hover:bg-primary-dull
+            text-white font-medium
+            px-10 py-3
+            rounded-full
+            w-full md:w-auto
+          "
+        >
+          <Search className="h-5" />
+          Search
+        </button>
+      </form>
+
+      {/* Image */}
+      <div className="mt-10">
+        <img src={hero_car} alt="car" className="max-w-full h-auto" />
       </div>
-      
-    </>
+    </div>
   );
 };
 

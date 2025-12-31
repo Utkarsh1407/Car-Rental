@@ -1,12 +1,50 @@
-import { dummycardata } from "@/assets/assets";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CarCard from "../components/CarCard";
 import { useAppContext } from "../../context/AppContext";
+import { useSearchParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Cars = () => {
 
   const {cars, axios} = useAppContext()
+  const [searchParams] = useSearchParams()
+  const pickupLocation = searchParams.get('pickupLocation')
+  const pickupDate = searchParams.get('pickupdate')
+  const returnDate = searchParams.get('returndate')
+  const [input,setInput] = useState('')
+  const isSearchData = pickupLocation && pickupDate && returnDate
+  const [filteredCars,setFilteredCars] = useState([])
 
+  const applyFilter = async() => {
+    if(input===""){
+      setFilteredCars(cars)
+      return null
+    }
+    const filtered = cars.slice().filter((car) => {
+        return car.brand.toLowerCase().includes(input.toLowerCase()) || car.model.toLowerCase().includes(input.toLowerCase()) 
+        || car.category.toLowerCase().includes(input.toLowerCase()) || car.transmission.toLowerCase().includes(input.toLowerCase())
+    })
+    setFilteredCars(filtered)
+  }
+
+  const searchCarAvailability = async() => {
+    const {data} = await axios.post('/api/bookings/check-availability',{location:pickupLocation,pickupDate,returnDate})
+    if(data.success){
+      setFilteredCars(data.availableCars)
+      if(data.availableCars.length === 0){
+        toast("No Parse Available")
+      }
+      return null
+    }
+  } 
+
+  useEffect(() => {
+    isSearchData && searchCarAvailability()
+  },[])
+
+  useEffect( () => {
+    cars.length>0 && !isSearchData && applyFilter()
+  },[input,cars])
 
   return (
     <>
@@ -34,15 +72,17 @@ const Cars = () => {
               type="text"
               placeholder="Search"
               className="w-full h-full outline-none text-gray-500 bg-transparent placeholder-gray-500 text-sm "
+              onClick={(e) => setInput(e.target.value)}
+              value={input}
             />
           </div>
         </div>
 
         <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10">
-          <p className="text-gray-500">Showing {cars.length} Cars</p>
+          <p className="text-gray-500">Showing {filteredCars.length} Cars</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            {cars.map((car,index) => (
+            {filteredCars.map((car,index) => (
               <div key={index}>
                 <CarCard car={car}/>
               </div>
