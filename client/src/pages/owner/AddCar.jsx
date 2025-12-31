@@ -1,59 +1,86 @@
 import { useAppContext } from "../../../context/AppContext";
 import { useState } from "react";
+import toast from "react-hot-toast"
 
 
 const AddCar = () => {
 
   const {axios} = useAppContext()
-  const [formData, setFormData] = useState({
+  const [car, setCar] = useState({
     brand: "",
     model: "",
     year: "",
-    price: "",
+    pricePerDay: "",
     category: "",
     transmission: "",
-    fuelType: "",
-    seats: "",
+    fuel_type: "",
+    seating_capacity: "",
     location: "",
     features: [],
-    description: "",
+    description: ""
   });
+
+  const [image,setImage] = useState(null)
 
 
   const [featureInput, setFeatureInput] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleImage = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    setCar({ ...car, [e.target.name]: e.target.value });
   };
 
   const addFeature = () => {
     if (!featureInput.trim()) return;
-    setFormData({
-      ...formData,
-      features: [...formData.features, featureInput.trim()],
+    setCar({
+      ...car,
+      features: [...car.features, featureInput.trim()],
     });
     setFeatureInput("");
   };
 
   const removeFeature = (index) => {
-    setFormData({
-      ...formData,
-      features: formData.features.filter((_, i) => i !== index),
+    setCar({
+      ...car,
+      features: car.features.filter((_, i) => i !== index),
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // try{
-    //   const {data} = axios.post('/api/owner/add-car',{formData})
 
-    // }
+    try {
+      const formData = new FormData();
+
+      formData.append('image', image)
+      formData.append('carData', JSON.stringify(car))
+
+      const {data} = await axios.post("/api/owner/add-car", formData);
+
+      if (data.success) {
+        toast.success("Your car has been added");
+        setImage(null);
+
+        setCar({
+          brand: "",
+          model: "",
+          year: "",
+          pricePerDay: "",
+          category: "",
+          transmission: "",
+          fuel_type: "",
+          seating_capacity: "",
+          location: "",
+          features: [],
+          description: ""
+        })
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
+
 
   return (
     <div className="max-w-5xl mx-auto p-6">
@@ -72,16 +99,16 @@ const AddCar = () => {
 
         {/* Year, Price, Category */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Input label="Year" name="year" placeholder="2025" onChange={handleChange} />
-          <Input label="Daily Price ($)" name="price" placeholder="100" onChange={handleChange} />
+          <Input type="number" label="Year" name="year" placeholder="2025" onChange={handleChange} />
+          <Input type="number" label="Daily Price ($)" name="pricePerDay" placeholder="100" onChange={handleChange} />
           <Input label="Category" name="category" placeholder="Sedan" onChange={handleChange} />
         </div>
 
         {/* Transmission, Fuel, Seats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Input label="Transmission" name="transmission" placeholder="Automatic" onChange={handleChange} />
-          <Input label="Fuel Type" name="fuelType" placeholder="Diesel" onChange={handleChange} />
-          <Input label="Seating Capacity" name="seats" placeholder="5" onChange={handleChange} />
+          <Input label="Fuel Type" name="fuel_type" placeholder="Diesel" onChange={handleChange} />
+          <Input type="number" label="Seating Capacity" name="seating_capacity" placeholder="5" onChange={handleChange} />
         </div>
 
         {/* Location */}
@@ -113,7 +140,7 @@ const AddCar = () => {
 
           {/* Feature tags */}
           <div className="flex flex-wrap gap-2 mt-3">
-            {formData.features.map((feature, index) => (
+            {car.features.map((feature, index) => (
               <span
                 key={index}
                 className="bg-gray-100 px-3 py-1 rounded-full text-sm flex items-center gap-2"
@@ -144,15 +171,14 @@ const AddCar = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Description</label>
-          <input type="file" accept="image/*" onChange={handleImage} className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+          <label className="block text-sm font-medium mb-2">Image</label>
+          <input type="file" name="image" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
         </div>
 
         {/* Submit */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700"
-          onSubmit={handleSubmit}
         >
           Add Car
         </button>

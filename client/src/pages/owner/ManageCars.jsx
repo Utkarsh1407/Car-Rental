@@ -1,15 +1,44 @@
 import { dummycardata } from '@/assets/assets'
 import React, { useEffect, useState } from 'react'
 import { Eye,Trash,EyeOff } from 'lucide-react'
+import { useAppContext } from '../../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const ManageCars = () => {
   const [cars,setCars] = useState([])
+
+  const {axios, isOwner} = useAppContext()
+
   const fetchCars= async () => {
-    setCars(dummycardata)
+    try{
+      const {data} = await axios.get('/api/owner/get-cars')
+      if(data.success){
+        setCars(data.cars)
+      }else{
+        toast.error(data.message)
+      }
+    }catch(error){
+      toast.error(error.message)
+    }
   }
+
+  const toggleAvailability = async (carId) => {
+      try{
+          const {data} = await axios.post('/api/owner/toggle-availability', {carId})
+          if(data.success){
+            fetchCars()
+          }else{
+            toast.error(data.message)
+          }
+        }catch(error){
+          toast.error(error.message)
+        }
+  }
+
   useEffect(() => {
-    fetchCars()
-  },[]) 
+    isOwner && fetchCars()
+  },[isOwner]) 
+
   return (
     <div className='mx-6 md:mx-12 pt-6'>
         <h1 className='text-4xl pb-2'>Manage Cars</h1>
@@ -47,7 +76,7 @@ const ManageCars = () => {
                     </td>
                     <td>
                       <div className='flex p-3 items-center gap-2'>
-                        {car.isAvailable ? <EyeOff className='h-4 cursor-pointer'/> : <Eye className='h-4 cursor-pointer'/>}
+                        {car.isAvailable ? <EyeOff onClick={() => toggleAvailability(car._id)} className='h-4 cursor-pointer'/> : <Eye onClick={() => toggleAvailability(car._id)} className='h-4 cursor-pointer'/>}
                         <Trash className='h-4 cursor-pointer'/>
                       </div>
                     </td>
