@@ -17,8 +17,8 @@ const Hero = () => {
   };
 
   return (
-    <div className="bg-light px-4 pt-20 pb-10">
-      <h1 className="font-bold text-4xl text-center mb-8">
+    <div className="bg-light px-4 py-12">
+      <h1 className="font-bold text-4xl text-center mb-10">
         Luxury Cars on Rent
       </h1>
 
@@ -27,86 +27,79 @@ const Hero = () => {
         onSubmit={handleSearch}
         className="
           mx-auto
-          w-full max-w-3xl
+          w-full max-w-4xl
           bg-white shadow-lg
-          rounded-2xl md:rounded-full
-          px-4 py-4 md:px-10
-          flex flex-col md:flex-row
-          gap-4 md:gap-6
-          items-stretch md:items-end
+          rounded-full
+          px-6 py-6
+
+          flex flex-col
+          gap-4
+
+          md:flex-row
+          md:items-end
+          md:gap-6
         "
       >
-        {/* Inputs */}
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-1">
-          {/* City */}
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-semibold text-gray-700 mb-2">
-              Select City
-            </label>
-            <select
-              required
-              className="h-11 px-4 rounded-md border border-gray-300 bg-white text-sm"
-              onChange={(e) => setPickupLocation(e.target.value)}
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select City
-              </option>
-              <option value="London">London</option>
-              <option value="San Francisco">San Francisco</option>
-              <option value="Miami">Miami</option>
-              <option value="Florida">Florida</option>
-            </select>
-          </div>
+        {/* City */}
+        <div className="flex flex-col w-full">
+          <label className="text-sm font-semibold mb-2">Select City</label>
+          <select
+            required
+            defaultValue=""
+            onChange={(e) => setPickupLocation(e.target.value)}
+            className="h-11 border rounded-md px-3"
+          >
+            <option value="" disabled>Select City</option>
+            <option value="London">London</option>
+            <option value="Miami">Miami</option>
+            <option value="San Francisco">San Francisco</option>
+          </select>
+        </div>
 
-          {/* Pickup Date */}
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-medium mb-2">Pickup Date</label>
-            <input
-              required
-              value={pickupDate}
-              type="date"
-              className="h-11 border rounded-md px-3"
-              onChange={(e) => setPickupDate(e.target.value)}
-            />
-          </div>
+        {/* Pickup */}
+        <div className="flex flex-col w-full">
+          <label className="text-sm font-medium mb-2">Pickup Date</label>
+          <input
+            type="date"
+            required
+            value={pickupDate}
+            onChange={(e) => setPickupDate(e.target.value)}
+            className="h-11 border rounded-md px-3"
+          />
+        </div>
 
-          {/* Return Date */}
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-medium mb-2">Return Date</label>
-            <input
-              required
-              value={returnDate}
-              type="date"
-              className="h-11 border rounded-md px-3"
-              onChange={(e) => setReturnDate(e.target.value)}
-            />
-          </div>
+        {/* Return */}
+        <div className="flex flex-col w-full">
+          <label className="text-sm font-medium mb-2">Return Date</label>
+          <input
+            type="date"
+            required
+            value={returnDate}
+            onChange={(e) => setReturnDate(e.target.value)}
+            className="h-11 border rounded-md px-3"
+          />
         </div>
 
         {/* Button */}
         <button
           type="submit"
           className="
-            flex items-center justify-center gap-2
-            bg-primary hover:bg-primary-dull
-            text-white font-medium
+            bg-primary text-white
             px-10 py-3
-            rounded-full
-            w-full md:w-auto
+            rounded-3xl
+            w-full md:w-auto flex items-center 
           "
         >
-          <Search className="h-5" />
+          <Search className="inline-block mr-2 h-5" />
           Search
         </button>
       </form>
 
-      {/* IMAGE */}
-      <div className="mt-12 flex justify-center">
+      <div className="mt-14 flex justify-center">
         <img
           src={hero_car}
           alt="car"
-          className="w-full max-w-sm md:max-w-md object-contain"
+          className="w-full max-w-md object-contain"
         />
       </div>
     </div>
