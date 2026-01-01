@@ -48,11 +48,11 @@ const ManageBookings = () => {
       <p>View all bookings, update their status or remove them.</p>
 
       <div className="mt-6 border border-borderColour overflow-x-auto">
-        <table className="min-w-175 shadow-lg border-collapse text-left text-sm">
+        <table className="w-full max-w-5xl shadow-lg border-collapse text-left text-sm">
           <thead>
             <tr>
               <th className="p-3 font-medium">Car</th>
-              <th className="p-3 font-medium max-md:hidden">Date Range</th>
+              <th className="p-3 font-medium">Date Range</th>
               <th className="p-3 font-medium">Total</th>
               <th className="p-3 font-medium">Status</th>
               <th className="p-3 font-medium">Action</th>
@@ -64,7 +64,7 @@ const ManageBookings = () => {
               <tr key={booking._id} className="border border-borderColour">
                 
                 {/* Car */}
-                <td className="p-3">
+                <td className="p-3 min-w-[220px]">
                   <div className="flex items-center gap-3">
                     <img
                       src={booking.car.image}
@@ -78,7 +78,7 @@ const ManageBookings = () => {
                 </td>
 
                 {/* Date Range */}
-                <td className="p-3 max-md:hidden">
+                <td className="p-3">
                   {new Date(booking.pickupDate).toLocaleDateString()} -{" "}
                   {new Date(booking.returnDate).toLocaleDateString()}
                 </td>
