@@ -17,14 +17,17 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-light">
-      <h1 className="font-bold text-4xl pb-6">Luxury Cars on Rent</h1>
+    <div className="bg-light px-4 pt-20 pb-10">
+      <h1 className="font-bold text-4xl text-center mb-8">
+        Luxury Cars on Rent
+      </h1>
 
       {/* FORM */}
       <form
         onSubmit={handleSearch}
         className="
-          w-full max-w-220
+          mx-auto
+          w-full max-w-3xl
           bg-white shadow-lg
           rounded-2xl md:rounded-full
           px-4 py-4 md:px-10
@@ -41,17 +44,15 @@ const Hero = () => {
               Select City
             </label>
             <select
-              className="
-                h-11 px-4 rounded-md border border-gray-300
-                bg-white text-sm text-gray-800
-                focus:outline-none focus:ring-2 focus:ring-black
-              "
+              required
+              className="h-11 px-4 rounded-md border border-gray-300 bg-white text-sm"
               onChange={(e) => setPickupLocation(e.target.value)}
               defaultValue=""
             >
               <option value="" disabled>
-                London
+                Select City
               </option>
+              <option value="London">London</option>
               <option value="San Francisco">San Francisco</option>
               <option value="Miami">Miami</option>
               <option value="Florida">Florida</option>
@@ -100,9 +101,13 @@ const Hero = () => {
         </button>
       </form>
 
-      {/* Image */}
-      <div className="mt-10">
-        <img src={hero_car} alt="car" className="max-w-full h-auto" />
+      {/* IMAGE */}
+      <div className="mt-12 flex justify-center">
+        <img
+          src={hero_car}
+          alt="car"
+          className="w-full max-w-sm md:max-w-md object-contain"
+        />
       </div>
     </div>
   );
